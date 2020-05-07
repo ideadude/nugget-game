@@ -63,6 +63,7 @@ function create ()
 function update ()
 {
     var cam = this.cameras.main;
+    var velocity_base = 400;
 
     /*
     text.setText([
@@ -75,21 +76,27 @@ function update ()
 
     player.setVelocity(0);
 
+    if (cursors.shift.isDown) {
+        velocity_base = 1000;
+    } else {
+        velocity_base = 400;
+    }
+
     if (cursors.left.isDown)
     {
-        player.setVelocityX(-300);
+        player.setVelocityX(0-velocity_base);
     }
     else if (cursors.right.isDown)
     {
-        player.setVelocityX(300);
+        player.setVelocityX(velocity_base);
     }
 
     if (cursors.up.isDown)
     {
-        player.setVelocityY(-300);
+        player.setVelocityY(0-velocity_base);
     }
     else if (cursors.down.isDown)
     {
-        player.setVelocityY(300);
+        player.setVelocityY(velocity_base);
     }
 }
