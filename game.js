@@ -10,7 +10,8 @@ var config = {
         preload: preload,
         create: create,
         update: update
-    }
+    },
+    antialias: false
 };
 
 var player;
@@ -38,9 +39,17 @@ function create ()
     var atlasTexture = this.textures.get('farm');
     var frames = atlasTexture.getFrameNames();  
 
-    player = this.physics.add.image(0, 0, 'farm', 'sprite244');
-    player.setScale(4);    
+    // Background
+    grass1 = this.physics.add.image(0, 0, 'farm', 'sprite341');
+    grass1.setScale(8);
 
+    background = this.add.tileSprite(0, 0, 1024*8, 1024*8, 'farm', 'sprite341');
+    background.tileScaleX = 8;
+    background.tileScaleY = 8;
+
+    // Chicken
+    player = this.physics.add.image(0, 0, 'farm', 'sprite244');
+    player.setScale(8);
     player.setCollideWorldBounds(true);
 
     this.cameras.main.startFollow(player, true);
@@ -48,42 +57,21 @@ function create ()
     this.cameras.main.setDeadzone(400, 200);
     this.cameras.main.setZoom(0.5);
 
-    if (this.cameras.main.deadzone)
-    {
-        graphics = this.add.graphics().setScrollFactor(0);
-        graphics.lineStyle(2, 0x00ff00, 1);
-        graphics.strokeRect(200, 200, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
-    }
-
-    text = this.add.text(32, 32).setScrollFactor(0).setFontSize(32).setColor('#ffffff');;
+    text = this.add.text(32, 32).setScrollFactor(0).setFontSize(32).setColor('#ffffff');
 }
 
 function update ()
 {
     var cam = this.cameras.main;
 
-    if (cam.deadzone)
-    {
-        text.setText([
-            'ScrollX: ' + cam.scrollX,
-            'ScrollY: ' + cam.scrollY,
-            'MidX: ' + cam.midPoint.x,
-            'MidY: ' + cam.midPoint.y,
-            'deadzone left: ' + cam.deadzone.left,
-            'deadzone right: ' + cam.deadzone.right,
-            'deadzone top: ' + cam.deadzone.top,
-            'deadzone bottom: ' + cam.deadzone.bottom
-        ]);
-    }
-    else
-    {
-        text.setText([
-            'ScrollX: ' + cam.scrollX,
-            'ScrollY: ' + cam.scrollY,
-            'MidX: ' + cam.midPoint.x,
-            'MidY: ' + cam.midPoint.y
-        ]);
-    }
+    /*
+    text.setText([
+        'ScrollX: ' + cam.scrollX,
+        'ScrollY: ' + cam.scrollY,
+        'MidX: ' + cam.midPoint.x,
+        'MidY: ' + cam.midPoint.y
+    ]);
+    */
 
     player.setVelocity(0);
 
