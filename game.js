@@ -51,6 +51,7 @@ function create ()
     player = this.physics.add.image(0, 0, 'farm', 'sprite244');
     player.setScale(8);
     player.setCollideWorldBounds(true);
+    player.facing = 'right';
 
     this.cameras.main.startFollow(player, true);
 
@@ -85,10 +86,19 @@ function update ()
     if (cursors.left.isDown)
     {
         player.setVelocityX(0-velocity_base);
+        if ( player.facing == 'right' ) {
+            player.setFlip(true,false);
+            player.facing = 'left';
+        }
     }
     else if (cursors.right.isDown)
     {
         player.setVelocityX(velocity_base);
+        console.log(player.facing);
+        if ( player.facing == 'left' ) {
+            player.setFlip(false,false);
+            player.facing = 'right';
+        }
     }
 
     if (cursors.up.isDown)
